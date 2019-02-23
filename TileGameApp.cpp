@@ -3,7 +3,9 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  */
 
+#include <Point.h>
 #include <Rect.h>
+#include <Size.h>
 #include <Window.h>
 
 #include "TileGameApp.h"
@@ -18,8 +20,8 @@ TileGameApp::TileGameApp()
 void
 TileGameApp::ReadyToRun()
 {
-	BRect winFrame = (200, 200, 400, 400);
-	BRect viewFrame = (0, 0, 400, 400);
+	BRect winFrame = BRect(BPoint(200.0, 200.0), BSize(400, 400));
+	BRect viewFrame = BRect(BPoint(0.0, 0.0), BSize(400, 400));
 	BWindow* win = new BWindow(winFrame, "Tile Game", B_TITLED_WINDOW,
 				B_QUIT_ON_WINDOW_CLOSE | B_NOT_H_RESIZABLE);
 	TileGameView* view = new TileGameView(viewFrame);
