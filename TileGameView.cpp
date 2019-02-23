@@ -4,6 +4,7 @@
  */
 
 #include <stdio.h>
+#include <time.h>
 #include <Alert.h>
 #include <Point.h>
 #include <Rect.h>
@@ -11,11 +12,14 @@
 
 #include "TileGameView.h"
 
+#define SHUFFLE_SIZE 100
+
 TileGameView::TileGameView(BRect frame)
 	: BView(frame, "view", B_FOLLOW_ALL_SIDES,
 			B_FULL_UPDATE_ON_RESIZE | B_WILL_DRAW)
 {
 	SetViewColor(0, 0, 0);
+	shuffle();
 }
 
 void
@@ -52,6 +56,7 @@ TileGameView::MouseDown(BPoint where)
 			"Congratulations, you\'ve solved the puzzle!", "Play again");
 		alert->CenterIn(Window()->Frame());
 		alert->Show();
+		shuffle();
 	}
 }
 
@@ -106,6 +111,38 @@ void TileGameView::shiftTiles(int clickedIndex)
 	}
 
 	// If tiles have shifted, tell the view to redraw
+	Invalidate();
+}
+
+void
+TileGameView::shuffle()
+{
+	int i, swapA, swapB, tmp;
+	int neighbours[4];
+
+	for (i=0; i<16; i++) {
+		tiles[i] = i;
+	}
+
+	srand(time(NULL));
+
+	for (i=0; i<SHUFFLE_SIZE; i++) {
+		swapA = blankAt();
+		neighbours[0] = swapA-1;
+		neighbours[1] = swapA-4;
+		neighbours[2] = swapA+1;
+		neighbours[3] = swapA+4;
+
+		do {
+			swapB = neighbours[rand()%4];
+		} while (swapB<0 or swapB>15 or
+			(swapA%4 != swapB%4 and swapA/4 != swapB/4));
+
+		tmp = tiles[swapA];
+		tiles[swapA] = tiles[swapB];
+		tiles[swapB] = tmp;
+	}
+
 	Invalidate();
 }
 
