@@ -63,13 +63,10 @@ void TileGameView::shiftTiles(int clickedIndex)
 {
 	int blankIndex = blankAt();
 
-	// Clicking the blank tile does nothing
-	if (clickedIndex == blankIndex) {
-		return;
-	}
-
 	// Clicking a tile in the same row moves horizontally
-	else if (clickedIndex / 4 == blankIndex / 4) {
+	if (clickedIndex != blankIndex &&
+		clickedIndex / 4 == blankIndex / 4)
+	{
 		int diff = clickedIndex - blankIndex,
 			dir = diff / abs(diff);
 
@@ -81,7 +78,9 @@ void TileGameView::shiftTiles(int clickedIndex)
 	}
 
 	// Clicking a tile in the same column moves vertically
-	else if (clickedIndex % 4 == blankIndex % 4) {
+	else if (clickedIndex != blankIndex &&
+		clickedIndex % 4 == blankIndex % 4)
+	{
 		int diff = (clickedIndex - blankIndex) / 4,
 			dir = 4 * (diff / abs(diff));
 
@@ -93,7 +92,8 @@ void TileGameView::shiftTiles(int clickedIndex)
 	}
 
 	// Otherwise, do nothing
-	else {
+	else
+	{
 		return;
 	}
 
