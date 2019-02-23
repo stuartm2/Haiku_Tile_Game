@@ -36,8 +36,6 @@ TileGameView::Draw(BRect updateRect)
 			DrawChar(tiles[i] + 65, BPoint(x + 50, y + 50));
 		}
 	}
-
-	Invalidate();
 }
 
 void
@@ -93,4 +91,12 @@ void TileGameView::shiftTiles(int clickedIndex)
 
 		tiles[clickedIndex] = 15;
 	}
+
+	// Otherwise, do nothing
+	else {
+		return;
+	}
+
+	// If tiles have shifted, tell the view to redraw
+	Invalidate();
 }
