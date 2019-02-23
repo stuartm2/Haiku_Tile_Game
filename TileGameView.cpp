@@ -55,6 +55,7 @@ TileGameView::MouseDown(BPoint where)
 		BAlert* alert = new BAlert("Solved!",
 			"Congratulations, you\'ve solved the puzzle!", "Play again");
 		alert->Go();
+		Window()->Activate();
 		shuffle();
 	}
 }
