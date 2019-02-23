@@ -54,8 +54,7 @@ TileGameView::MouseDown(BPoint where)
 	if (isSolved()) {
 		BAlert* alert = new BAlert("Solved!",
 			"Congratulations, you\'ve solved the puzzle!", "Play again");
-		alert->CenterIn(Window()->Frame());
-		alert->Show();
+		alert->Go();
 		shuffle();
 	}
 }
