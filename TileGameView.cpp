@@ -33,6 +33,7 @@ TileGameView::Draw(BRect updateRect)
 			FillRect(rect, B_SOLID_HIGH);
 		} else {
 			FillRect(rect, B_SOLID_LOW);
+			DrawChar(tiles[i] + 65, BPoint(x + 50, y + 50));
 		}
 	}
 
@@ -71,7 +72,7 @@ void TileGameView::shiftTiles(int clickedIndex)
 
 	// Clicking a tile in the same row moves horizontally
 	else if (clickedIndex / 4 == blankIndex / 4) {
-		int diff = blankIndex - clickedIndex,
+		int diff = clickedIndex - blankIndex,
 			dir = diff / abs(diff);
 
 		for (int i=0; i<abs(diff); i++) {
@@ -83,7 +84,7 @@ void TileGameView::shiftTiles(int clickedIndex)
 
 	// Clicking a tile in the same column moves vertically
 	else if (clickedIndex % 4 == blankIndex % 4) {
-		int diff = (blankIndex - clickedIndex) / 4,
+		int diff = (clickedIndex - blankIndex) / 4,
 			dir = 4 * (diff / abs(diff));
 
 		for (int i=0; i<abs(diff); i++) {
