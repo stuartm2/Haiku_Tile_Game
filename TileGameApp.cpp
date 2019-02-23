@@ -23,7 +23,7 @@ TileGameApp::ReadyToRun()
 	BRect winFrame = BRect(BPoint(200.0, 200.0), BSize(400, 400));
 	BRect viewFrame = BRect(BPoint(0.0, 0.0), BSize(400, 400));
 	BWindow* win = new BWindow(winFrame, "Tile Game", B_TITLED_WINDOW,
-				B_QUIT_ON_WINDOW_CLOSE | B_NOT_H_RESIZABLE);
+				B_QUIT_ON_WINDOW_CLOSE | B_NOT_RESIZABLE);
 	TileGameView* view = new TileGameView(viewFrame);
 	win->AddChild(view);
 	win->Show();
