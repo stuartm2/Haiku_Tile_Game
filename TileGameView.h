@@ -29,6 +29,7 @@ class TileGameView
 	protected:
 		int blankAt();
 		void shiftTiles(int clickedIndex);
+		bool isSolved();
 };
 
 #endif

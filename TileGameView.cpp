@@ -4,6 +4,7 @@
  */
 
 #include <stdio.h>
+#include <Alert.h>
 #include <Point.h>
 #include <Rect.h>
 #include <Size.h>
@@ -45,6 +46,13 @@ TileGameView::MouseDown(BPoint where)
 	int yTile = where.y / (400/4);
 	int iTile = 4 * yTile + xTile;
 	shiftTiles(iTile);
+
+	if (isSolved()) {
+		BAlert* alert = new BAlert("Solved!",
+			"Congratulations, you\'ve solved the puzzle!", "Play again");
+		alert->CenterIn(Window()->Frame());
+		alert->Show();
+	}
 }
 
 int
@@ -99,4 +107,16 @@ void TileGameView::shiftTiles(int clickedIndex)
 
 	// If tiles have shifted, tell the view to redraw
 	Invalidate();
+}
+
+bool
+TileGameView::isSolved()
+{
+	for (int i=0; i<16; i++) {
+		if (i != tiles[i]) {
+			return false;
+		}
+	}
+
+	return true;
 }
