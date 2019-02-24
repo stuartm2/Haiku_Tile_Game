@@ -6,9 +6,13 @@
 #include <stdio.h>
 #include <time.h>
 #include <Alert.h>
+#include <Bitmap.h>
+#include <Entry.h>
+#include <Path.h>
 #include <Point.h>
 #include <Rect.h>
 #include <Size.h>
+#include <TranslationUtils.h>
 
 #include "TileGameView.h"
 
@@ -20,6 +24,9 @@ TileGameView::TileGameView(BRect frame)
 	: BView(frame, "view", B_FOLLOW_ALL_SIDES,
 			B_FULL_UPDATE_ON_RESIZE | B_WILL_DRAW)
 {
+	BEntry entry = BEntry("luka.png");
+	BPath path = BPath(&entry);
+	srcImg = BTranslationUtils::GetBitmap(path.Path());
 	SetViewColor(0, 0, 0);
 	shuffle();
 }
@@ -27,20 +34,22 @@ TileGameView::TileGameView(BRect frame)
 void
 TileGameView::Draw(BRect updateRect)
 {
-	BSize size = BSize(98.0, 98.0);
-	BRect rect;
+	BSize size = BSize(100.0, 100.0);
+	BRect srcRect, dstRect;
 
 	for (int i=0; i<16; i++) {
-		int x = (i % 4) * 100,
-			y = (i / 4) * 100;
-
-		rect = BRect(BPoint(x + 1, y + 1), size);
+		int srcX = (tiles[i] % 4) * 100.0,
+			srcY = (tiles[i] / 4) * 100.0,
+			dstX = (i % 4) * 100,
+			dstY = (i / 4) * 100;
+		srcRect = BRect(BPoint(srcX, srcY), size),
+		dstRect = BRect(BPoint(dstX, dstY), size);
 
 		if (tiles[i] == 15) { // Blank tile
-			FillRect(rect, B_SOLID_HIGH);
+			FillRect(dstRect, B_SOLID_HIGH);
 		} else {
-			FillRect(rect, B_SOLID_LOW);
-			DrawChar(tiles[i] + 65, BPoint(x + 50, y + 50));
+			DrawBitmap(srcImg, srcRect, dstRect);
+			StrokeRect(srcRect, B_SOLID_HIGH);
 		}
 	}
 }

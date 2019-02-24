@@ -6,6 +6,7 @@
 #ifndef TILEGAMEVIEW_H
 #define TILEGAMEVIEW_H
 
+#include <Bitmap.h>
 #include <Point.h>
 #include <Rect.h>
 #include <SupportDefs.h>
@@ -21,6 +22,7 @@ class TileGameView
 		virtual void MouseDown(BPoint where);
 	private:
 		char tiles[16];
+		BBitmap* srcImg;
 	protected:
 		int blankAt();
 		void shiftTiles(int clickedIndex);
