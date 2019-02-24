@@ -49,8 +49,14 @@ TileGameView::Draw(BRect updateRect)
 			FillRect(dstRect, B_SOLID_HIGH);
 		} else {
 			DrawBitmap(srcImg, srcRect, dstRect);
-			StrokeRect(srcRect, B_SOLID_HIGH);
 		}
+	}
+
+	for (int i=0; i<16; i++) {
+		int srcX = (tiles[i] % 4) * 100.0,
+			srcY = (tiles[i] / 4) * 100.0;
+		srcRect = BRect(BPoint(srcX, srcY), size),
+		StrokeRect(srcRect, B_SOLID_HIGH);
 	}
 }
 
