@@ -17,7 +17,7 @@
 #include "TileGameView.h"
 
 #ifndef SHUFFLE_SIZE
-#define SHUFFLE_SIZE 100
+#define SHUFFLE_SIZE 200
 #endif
 
 TileGameView::TileGameView(BRect frame)
