@@ -7,12 +7,11 @@
 #include <time.h>
 #include <Alert.h>
 #include <Bitmap.h>
-#include <Entry.h>
-#include <Path.h>
 #include <Point.h>
 #include <Rect.h>
 #include <Size.h>
 #include <TranslationUtils.h>
+#include <TranslatorFormats.h>
 
 #include "TileGameView.h"
 
@@ -24,9 +23,7 @@ TileGameView::TileGameView(BRect frame)
 	: BView(frame, "view", B_FOLLOW_ALL_SIDES,
 			B_FULL_UPDATE_ON_RESIZE | B_WILL_DRAW)
 {
-	BEntry entry = BEntry("luka.png");
-	BPath path = BPath(&entry);
-	srcImg = BTranslationUtils::GetBitmap(path.Path());
+	srcImg = BTranslationUtils::GetBitmap(B_PNG_FORMAT, 1);
 	SetViewColor(0, 0, 0);
 	shuffle();
 }
